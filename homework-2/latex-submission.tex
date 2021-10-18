@@ -1,0 +1,92 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{biblatex}
+\usepackage{xspace}
+\usepackage{listings}
+\title{CAAM519, Homework\#2: \LaTeX\xspace Submission}
+\author{\texttt{hw66}}
+\date{September 30, 2021}
+
+\begin{document}
+\maketitle
+\section{Communicating with remote machines via ssh}
+\begin{verbatim}
+1. ssh hw66@ssh.clear.rice.edu
+2. The Rice University Network - Unauthorized access is prohibited
+hw66@ssh.clear.rice.edu's password:
+Last login: Thu Sep 16 00:20:44 2021 from c-98-200-112-214.hsd1.tx.comcast.net
+The Rice University Network
+ ===========================
+ Unauthorized use is prohibited.
+
+ This computer system is for authorized users only.  Individuals using this
+ system without authority or in excess of their authority are subject to
+ having all their activities on this system monitored and recorded or
+ examined by any authorized person, including law enforcement, as system
+ personnel deem appropriate.  In the course of monitoring individuals
+ improperly using the system or in the course of system maintenance, the
+ activities of authorized users may also be monitored and recorded.  Any
+ material so recorded may be disclosed as appropriate.  Anyone using this
+ system consents to these terms.
+
+ Problems and/or questions should be submitted via the problem tracking
+ system form: http://helpdesk.rice.edu
+
+CURRENT USAGE AND LOAD ON THE COMPUTE NODES:
+  Sun Oct 17 21:50:01 CDT 2021
+
+ System                         # Users         Load ( 5, 10, 15 minute)
+   agate.clear.rice.edu            10             2.05, 2.12, 2.13
+   amber.clear.rice.edu             2             0.04, 0.10, 0.10
+   cobalt.clear.rice.edu            0             0.00, 0.01, 0.05
+   jade.clear.rice.edu              5             0.00, 0.04, 0.11
+   onyx.clear.rice.edu              2             0.04, 0.14, 0.13
+   opal.clear.rice.edu              3             0.03, 0.08, 0.12
+   pyrite.clear.rice.edu            5             0.38, 0.12, 0.07
+
+NOTE: !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+   Please log an RT ticket for any issues you may have.
+
+   Please log a ticket at https://help.rice.edu if you have any of the following:
+     Feel documentation is lacking.
+     Have trouble getting into the system.
+     Feel the system is missing a tool.
+
+   NOTE: svn.rice.edu is now READ ONLY in preparation for removal
+         from service on January 8th, 2022
+
+   NOTE: If you don't have a home drive when using Clear, please
+         create a ticket in help.rice.edu  Be sure to put
+         "need clear home directory" in the subject and one will
+         be setup for you.
+
+   NOTE: New tools available.  Maven 3.8.2, gcc 9.3.1, java 11, clang 11.0.1,
+         julia 1.6.1, python 3.9.1, vim 8.2 w/ python support.
+         Plus special purpose applications:
+           Circuit Design (ngspice, magic), Network Simulation (ns-3).
+         See kb.rice.edu for details.
+
+   CLEAR NEWS -- https://kb.rice.edu/internal/page.php?id=71856
+   Tips and Hints -- https://kb.rice.edu/internal/page.php?id=71857
+3. pyrite.clear.rice.edu
+4. echo "PS1=">"" >> ~/.bashrc
+   source ~/.bashrc
+\end{verbatim}
+\section{A script to build a latex document while hiding auxiliary files}
+\begin{lstlisting}[language=bash][basicstyle=\small]
+#! /bin/bash
+echo "Project name?"
+read project
+# get user prompt for name of the project
+if [ ! -d "$PWD/.build" ]
+# test if the hidden directory exists
+then
+  mkdir .build
+# create one if .build doesn't exist
+fi
+pdflatex -aux-directory=$PWD/.build -output-directory=$PWD $project.tex
+# run the project.tex file with pdflatex and set aux directory and output directory
+\end{lstlisting}
+\paragraph{Permission of access file might be a potential problem when accessing the directory. Also, other users may not have pdflatex installed}
+\end{document}
